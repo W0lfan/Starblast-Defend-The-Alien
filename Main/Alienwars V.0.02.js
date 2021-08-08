@@ -302,7 +302,7 @@ var maps = [
 ];
 var mapsNames = ['Azergayere','Spikes',"Crystals"];
 var mapSpawns = [
-  [0,400,400,0,0,-400,-400,0],[8,9,10,11,12,13,14,15],[395,395,395,-395,-395,395,-395,-395]
+  [0,400,400,0,0,-400,-400,0],[410,410,-410,410,410,-410,-410,-410],[395,395,395,-395,-395,395,-395,-395]
 ];
 var generatorSpawns = [[0,0,0,0],[]];
 var map = {};
@@ -480,7 +480,7 @@ var showText = function(ship,text,pos,pos1,color) {
 };
 
 this.tick = function(game) {
-  //setSpawns(game);
+  setSpawns(game);
   //createGems(game);
   if (game.step % 15 === 0) {
     for (let ship of game.ships) {
@@ -488,8 +488,8 @@ this.tick = function(game) {
         ship.set({kill:true});
       }
       //setSpeed(ship);
-      setShop(ship);
-      setColors(ship);
+      //setShop(ship);
+      //setColors(ship);
       setScorebaord();
       pushScoreboardPerHue();
       ship.setUIComponent(scoreboard);
@@ -567,24 +567,72 @@ var pushScoreboardPerHue = function() {
 var setSpawns = function(game) {
   if (game.step === 0) {
     game.custom.stade = 0;
-    for (let i = 0; i<8;i+=2) {
-      var object = {};
+    a = colors[i].replace('#');
+    b = "0x" + a;
+    var object = {
+      0: {
+        id: `alien_1`,
+        obj: "https://raw.githubusercontent.com/W0lfan/Starblast-Defend-The-Alien/main/Aliens/Aliens%20OBJ/model_20",
+        emissive: "https://raw.githubusercontent.com/W0lfan/Starblast-Defend-The-Alien/main/lambert_20.jpg",
+        emissiveColor: "0x" + colors[0].replace('#'),
+        transparent: false,
+      },
+      1: {
+        id: `alien_2`,
+        obj: "https://raw.githubusercontent.com/W0lfan/Starblast-Defend-The-Alien/main/Aliens/Aliens%20OBJ/model_20",
+        emissive: "https://raw.githubusercontent.com/W0lfan/Starblast-Defend-The-Alien/main/lambert_20.jpg",
+        emissiveColor: "0x" + colors[1].replace('#'),
+        transparent: false,
+      },
+      2: {
+        id: `alien_3`,
+        obj: "https://raw.githubusercontent.com/W0lfan/Starblast-Defend-The-Alien/main/Aliens/Aliens%20OBJ/model_20",
+        emissive: "https://raw.githubusercontent.com/W0lfan/Starblast-Defend-The-Alien/main/lambert_20.jpg",
+        emissiveColor: "0x" + colors[2].replace('#'),
+        transparent: false,
+      },
+      3: {
+        id: `alien_4`,
+        obj: "https://raw.githubusercontent.com/W0lfan/Starblast-Defend-The-Alien/main/Aliens/Aliens%20OBJ/model_20",
+        emissive: "https://raw.githubusercontent.com/W0lfan/Starblast-Defend-The-Alien/main/lambert_20.jpg",
+        emissiveColor: "0x" + colors[3].replace('#'),
+        transparent: false,
+      }
+    };
+  }
+  for (let i = 0; i<4;i++) {
+    game.setObject({
+      id: `alien_${i}`,
+      type: object[i],
+      position: {
+        x:mapSpawns[maps.indexOf(map_)][i],
+        y:mapSpawns[maps.indexOf(map_)][i + 1],
+        z:-10
+      },
+      rotation: {
+        x:0,
+        y:0,
+        z:0,
+      },
+      scale: {x:0.2,y:0.2,z:0.2}
+    });
+  }
+};
+/*
+
       var assignation = {
-        id: `alien_${i}`,
-        obj: "https://raw.githubusercontent.com/W0lfan/Starblast-Defend-The-Alien/main/Aliens/Aliens%20OBJ/model_20.obj",
-        diffuse: "https://raw.githubusercontent.com/W0lfan/Starblast-Defend-The-Alien/blob/main/Aliens/lambert/lambert_20.jpg",
-        bump: "https://raw.githubusercontent.com/W0lfan/Starblast-Defend-The-Alien/blob/main/Aliens/lambert/lambert_20.jpg",
-        emissiveColor: 0x80FFFF,
-        specularColor: 0x805010,
-        diffuseColor:0xFF8080,
+        id: `alien_`,
+        obj: "https://raw.githubusercontent.com/W0lfan/Starblast-Defend-The-Alien/main/Aliens/Aliens%20OBJ/model_20",
+        emissive: "https://raw.githubusercontent.com/W0lfan/Starblast-Defend-The-Alien/main/lambert_20.jpg",
+        emissiveColor: 0xE183F9,
         transparent: false,
       };
       game.setObject({
-        id: `alien_${i}`,
+        id: `alien_`,
         type: assignation,
         position: {
-          x:mapSpawns[maps.indexOf(map_)][i],
-          y:mapSpawns[maps.indexOf(map_)][i + 1],
+          x:20,
+          y:0,
           z:-10
         },
         rotation: {
@@ -593,36 +641,6 @@ var setSpawns = function(game) {
           z:0,
         },
         scale: {x:0.2,y:0.2,z:0.2}
-      });
-    }
-  }
-};
-/*
-
-      var assignation = {
-        id: "alien",
-        obj: "https://raw.githubusercontent.com/W0lfan/Starblast-Defend-The-Alien/main/Aliens/Aliens%20OBJ/model_20",
-        diffuse: "https://raw.githubusercontent.com/mrGoldman1122/starblastGa/master/ship_lambert_texture.png",
-        bump: "https://raw.githubusercontent.com/mrGoldman1122/starblastGa/master/ship_lambert_texture.png",
-        emissiveColor: 0x80FFFF,
-        specularColor: 0x805010,
-        diffuseColor:0xFF8080,
-        transparent: false,
-      };
-      game.setObject({
-        id: "alien",
-        type: assignation,
-        position: {
-          x:0,
-          y:0,
-          z:-10
-        },
-        rotation: {
-          x:0,
-          y:0,
-          z:0,
-        },
-        scale: {x:20,y:20,z:20}
       });
 */
 
