@@ -316,7 +316,7 @@ var hues_teams = [
 var name_teams = [" Pink "," Cyan ","Green ","Orange","Yellow"," Red "];
 var allTeams = [];
 var hues = [];
-var colors = [];
+colors = [];
 for (let i = 0; i<4;i++) {
   var color = colors_teams[~~(Math.random()*colors_teams.length)];
   var index = colors_teams.indexOf(color);
@@ -331,7 +331,7 @@ for (let i = 0; i<4;i++) {
   hues_teams.splice(hues_teams.indexOf(hue),1);
   name_teams.splice(name_teams.indexOf(name_),1);
 }
-
+echo(colors)
 var teams = {
   0: {
     color: allTeams[0], hue: allTeams[1], name: allTeams[2]
@@ -563,12 +563,6 @@ var pushScoreboardPerHue = function() {
   }
 };
 
-
-var setSpawns = function(game) {
-  if (game.step === 0) {
-    game.custom.stade = 0;
-    a = colors[i].replace('#');
-    b = "0x" + a;
     var object = {
       0: {
         id: `alien_1`,
@@ -599,6 +593,10 @@ var setSpawns = function(game) {
         transparent: false,
       }
     };
+    
+var setSpawns = function(game) {
+  if (game.step === 0) {
+    game.custom.stade = 0;
   }
   for (let i = 0; i<4;i++) {
     game.setObject({
